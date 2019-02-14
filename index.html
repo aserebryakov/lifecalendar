@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Life Calendar</h1>
+
+<div>
+<p>Your birthday is:</p>
+<input type="date" name="bday" id="bday" onchange="draw()"><br><br>
+<p>Each square is a week in 90 years long live. Red squares are already passed weeks.</p>
+<canvas id="myCanvas" width="1200" height="500" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+<p>Inspired by "Inside the mind of a master procrastinator | Tim Urban"</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/arj7oStGLkU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<p>Site made by Alexander Serebryakov, 2019</p>
+</div>
+</body>
+
+<script>
+// Initial draw
+draw();
+
+function draw() {
+	now =  new Date();
+	birth = Date.parse(document.getElementById("bday").value)
+
+	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+
+	ctx.fillStyle = "#FF0000";
+
+	week = 0;
+	now = weeksBetween(birth, now);
+
+	for (i = 0 ; i < 47 ; i++) {
+		for (j = 0; j < 100 ; j++) {
+			week++;
+			ctx.fillRect(j*12,i*12,10,10);
+			if (week > now)
+				ctx.fillStyle = "#80FF00";
+		}
+	}
+}
+
+function weeksBetween(d1, d2) {
+	return Math.round((d2 - d1) / (7 * 24 * 60 * 60 * 1000));
+}
+</script>
+
+</html>
+
